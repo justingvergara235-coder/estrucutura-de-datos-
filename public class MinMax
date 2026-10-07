@@ -1,0 +1,48 @@
+public class MinMax {
+
+    static int[] minMax(int[] arreglo, int inicio, int fin) {
+
+
+        if (inicio == fin) {
+            return new int[]{arreglo[inicio], arreglo[inicio]};
+        }
+
+        
+        if (fin == inicio + 1) {
+            if (arreglo[inicio] < arreglo[fin]) {
+                return new int[]{arreglo[inicio], arreglo[fin]};
+            } else {
+                return new int[]{arreglo[fin], arreglo[inicio]};
+            }
+        }
+
+        
+        int medio = (inicio + fin) / 2;
+
+        
+        int[] izquierda = minMax(arreglo, inicio, medio);
+
+        
+        int[] derecha = minMax(arreglo, medio + 1, fin);
+
+        int minimo = Math.min(izquierda[0], derecha[0]);
+        int maximo = Math.max(izquierda[1], derecha[1]);
+
+        return new int[]{minimo, maximo};
+    }
+
+    public static void main(String[] args) {
+
+        int[] arreglo = {7};
+
+        int[] resultado = minMax(arreglo, 0, arreglo.length - 1);
+
+        System.out.println("Minimo: " + resultado[0]);
+        System.out.println("Maximo: " + resultado[1]);
+    }
+}
+// Mínimo y máximo simultáneos
+//caso base : Si hay un solo elemento, ese elemento es el mínimo y el máximo.
+//Dividir:Dividimos el arreglo en dos mitades
+//Recursión:Se recursa en ambas mitades.
+//Combinar:Comparamos los mínimos de ambas partes para obtener el mínimo final y hacemos lo mismo con los máximos.
